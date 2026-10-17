@@ -10,7 +10,7 @@
 - **一次情報**: [公式リポジトリ](https://github.com/nvidia-cosmos/cosmos-reason2)・[論文 arXiv:2503.15558（Cosmos-Reason1）](https://arxiv.org/abs/2503.15558)
 - **種類**: OSS
 - **ライセンス**: コードは Apache-2.0、モデルの重みは NVIDIA Open Model License（README の表記）
-- **状態**: 研究段階
+- **状態**: 開発終了（README で、活発な開発を終えて最小限の保守だけになったとしている）
 - **確認日**: 2026-10-17
 - **情報源**: 一次
 - **移した日・理由**: 2026-10-17。README で、活発な開発を終えて最小限の保守だけになったとし、後継として Cosmos 3 を案内しているため。後継: [Cosmos 3](../vlm.md#cosmos-3)
