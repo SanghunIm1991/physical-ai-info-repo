@@ -8,3 +8,4 @@
 | 2026-10-17 | Git環境 | GitHubのリポジトリ名。選択肢: physical-ai-info-repo（推奨。ローカルのフォルダ名と同じ）、physical-ai-info、physical-ai-ja | physical-ai-info-repo。フォルダ名とそろえて取り違えを防ぐ |
 | 2026-10-17 | Git環境 | git push の承認の粒度。選択肢: 都度確認（推奨。push前の点検を確実に挟める）、commit+pushを1セットで扱う | commit+pushを1セットで扱う。ただしpush前の点検（public-release-reviewの手順1・2の観点）は毎回行い、問題があればpushせず報告する。GitHub上のリポジトリ作成と公開範囲の変更は、この運用の対象外とし、別に承認を得る（Claudeの補足。誤りがあれば後日修正する前提） |
 | 2026-10-17 | Git環境 | ローカルの準備の案（`git init -b main`、`.gitignore`〈OSが作るファイル・`.claude/settings.local.json`・手元専用の`local/`を除外〉、公開前提の方針とコミット規約を書いた`CLAUDE.md`の作成）を実施してよいか。GitHub上の作成とpushは初回コミットの点検後に改めて確認する | 案のとおり実施する |
+| 2026-10-17 | Git環境 | 初回コミットの点検（機械点検・目視点検で問題なし）の後、GitHubにprivateのリポジトリを作り、リモート`origin`を登録して`main`をpushしてよいか | 作成してpushする。公開範囲はprivateのままとし、publicへの切り替えはユーザーがあとで判断する |
