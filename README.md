@@ -13,7 +13,7 @@
 
 | ファイル | 内容 | 状況 |
 |---|---|---|
-| `primer.md` | 入門書（フィジカルAIの全体像と用語） | 準備中 |
+| [`primer.md`](primer.md) | 入門書（フィジカルAIの全体像と用語。5〜10分で読める分量） | 公開 |
 | [`topics/rai.md`](topics/rai.md) | RAI（ROS 2 上でエージェント型の AI 機能を組むフレームワーク） | 4項目 |
 | [`topics/vlm.md`](topics/vlm.md) | VLM（画像と言語を扱うモデル）と、VLA との関係 | 9項目 |
 | [`topics/archive/vlm.md`](topics/archive/vlm.md) | 古くなった項目（開発の停止、後継の登場など）の移し先（VLM） | 1項目 |
