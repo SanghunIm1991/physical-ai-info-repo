@@ -4,6 +4,7 @@
 
 ## 2026-10-17
 
+- `topics/industry.md` を追加（業界ごとの導入の状況。業界横断1・製造業2・販売業2・自動車業4・建設業3・医療と介護2の14項目）。項目の種類に「事例」「報告」を加えた
 - `topics/simulator.md` を追加（シミュレータの分類と選ぶときの観点の説明と8項目: MuJoCo、Newton、Isaac Sim と Isaac Lab、ManiSkill、Genesis World、Gazebo、O3DE、シミュレータと世界モデルの総説）。入門書の案内も更新
 - 入門書 `primer.md` を追加（全体像・3つの働き・技術の地図〈図〉・テーマの位置づけ・用語集）
 - `topics/vlm.md` を追加（VLM と VLA の関係の説明と9項目）。後継が出ていた Cosmos-Reason2 は `topics/archive/vlm.md` に置いた

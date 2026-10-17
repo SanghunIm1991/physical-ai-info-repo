@@ -17,6 +17,7 @@
 | [`topics/rai.md`](topics/rai.md) | RAI（ROS 2 上でエージェント型の AI 機能を組むフレームワーク） | 4項目 |
 | [`topics/vlm.md`](topics/vlm.md) | VLM（画像と言語を扱うモデル）と、VLA との関係 | 9項目 |
 | [`topics/simulator.md`](topics/simulator.md) | シミュレータ（ロボットの学習と開発のための仮想の空間）。分類と選ぶときの観点 | 8項目 |
+| [`topics/industry.md`](topics/industry.md) | 業界ごとの導入の状況（製造業・販売業・自動車業・建設業・医療と介護） | 14項目 |
 | [`topics/archive/vlm.md`](topics/archive/vlm.md) | 古くなった項目（開発の停止、後継の登場など）の移し先（VLM） | 1項目 |
 | [`CHANGELOG.md`](CHANGELOG.md) | 更新履歴 | — |
 | [`templates/item.md`](templates/item.md) | 1項目の書式 | — |
@@ -30,7 +31,7 @@
 |---|---|
 | 概要 | 何であるかの要約（このリポジトリが書いたもの） |
 | 一次情報 | 公式リポジトリ・論文・公式ドキュメント・開発元の発表へのリンク |
-| 種類 | OSS／論文／製品／解説 |
+| 種類 | OSS／論文／製品／事例（企業の導入の事例）／報告（統計・政府の資料）／解説 |
 | ライセンス | OSS・データ等のライセンス（開発元の表記のとおり。該当しない場合は「—」） |
 | 状態 | 研究段階／実用（判断の基準は `docs/research_procedure.md`） |
 | 確認日 | 一次情報を確かめた日（YYYY-MM-DD） |
