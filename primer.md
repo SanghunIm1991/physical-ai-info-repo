@@ -86,7 +86,7 @@ mermaid 版は自動で配置されるので、箱の並びが上の図と違う
 - **ROS 2**（Robot Operating System 2）は、ロボットのソフトウェアを小さな部品に分けて作り、部品どうしをメッセージでやり取りさせるための仕組みです（[公式のリポジトリ](https://github.com/ros2/ros2)）。名前に OS とありますが、Windows のような OS ではなく、その上で動く共通の土台（ミドルウェア）です。カメラの処理・地図づくり・腕の制御などを別々の部品として作り、組み合わせられます。
 - **RAI**（点線の枠）は、LLM・VLM をロボットのソフトウェアにつなぐ枠組みです。このリポジトリのテーマの1つなので、4節で説明します。
 
-計画を受け持つ VLM と、動作を受け持つ VLA を組み合わせる形もあります。例えば Google DeepMind の Gemini Robotics では、計画を立てる VLM（ER 2）が、動作を受け持つ VLA を「道具」として呼び出す構成をとっています（[`topics/vlm.md` の「Gemini Robotics ER 2」](topics/vlm.md#gemini-robotics-er-2)）。
+計画を受け持つ VLM と、動作を受け持つ VLA を組み合わせる形もあります。例えば Google DeepMind の Gemini Robotics では、計画を立てる VLM（ER 2）が、開発者が「道具」として登録した VLA などに、実際の動作を任せます（[`topics/vlm.md` の「Gemini Robotics ER 2」](topics/vlm.md#gemini-robotics-er-2)）。
 
 ## 4. このリポジトリのテーマは地図のどこか
 
