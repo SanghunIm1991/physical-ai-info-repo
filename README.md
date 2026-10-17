@@ -14,7 +14,7 @@
 | ファイル | 内容 | 状況 |
 |---|---|---|
 | `primer.md` | 入門書（フィジカルAIの全体像と用語） | 準備中 |
-| `topics/rai.md` | RAI（ROS 2 上でエージェント型の AI 機能を組むフレームワーク） | 準備中 |
+| [`topics/rai.md`](topics/rai.md) | RAI（ROS 2 上でエージェント型の AI 機能を組むフレームワーク） | 4項目 |
 | `topics/vlm.md` | VLM（画像と言語を扱うモデル）と、VLA との関係 | 準備中 |
 | `topics/archive/` | 古くなった項目（開発の停止、後継の登場など）の移し先 | — |
 | [`CHANGELOG.md`](CHANGELOG.md) | 更新履歴 | — |

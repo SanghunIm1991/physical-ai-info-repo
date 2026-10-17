@@ -4,4 +4,5 @@
 
 ## 2026-10-17
 
+- `topics/rai.md` を追加（RAI 本体、agentic-mobile-manipulator、RAI の論文、RHO の論文の4項目）
 - リポジトリの骨組みを作成（README・LICENSE・更新履歴・項目の書式・調べ方の手順書）
