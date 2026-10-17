@@ -4,6 +4,7 @@
 
 ## 2026-10-17
 
+- `topics/industry.md` を見直し（事例の状態を「実用／試験導入」に変更、鹿島建設の A4CSEL を試験導入に変更、選び方と載せていないものを明記、Mercedes-Benz とコマツの記述を一次情報で確かめ直した）。`topics/simulator.md` の選び方の説明を正した
 - `topics/industry.md` を追加（業界ごとの導入の状況。業界横断1・製造業2・販売業2・自動車業4・建設業3・医療と介護2の14項目）。項目の種類に「事例」「報告」を加えた
 - `topics/simulator.md` を追加（シミュレータの分類と選ぶときの観点の説明と8項目: MuJoCo、Newton、Isaac Sim と Isaac Lab、ManiSkill、Genesis World、Gazebo、O3DE、シミュレータと世界モデルの総説）。入門書の案内も更新
 - 入門書 `primer.md` を追加（全体像・3つの働き・技術の地図〈図〉・テーマの位置づけ・用語集）
