@@ -1,0 +1,10 @@
+# OSが作るファイル
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Claude Code の手元だけの設定
+.claude/settings.local.json
+
+# 手元にだけ置く資料（論文PDFなど第三者の著作物、下調べのメモ等）
+local/
