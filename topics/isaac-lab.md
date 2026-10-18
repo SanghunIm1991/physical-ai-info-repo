@@ -4,7 +4,7 @@ Isaac Lab は、NVIDIA が開発する、ロボットの学習（強化学習・
 
 - **前提の知識**: 強化学習の基本（方策・報酬・PPO など）と、Python・PyTorch を使えることを前提にします。用語は、Isaac Lab の公式の文書の英語の名前（クラス名・設定の名前）をそのまま併記します。
 - **版の扱い**: 確認日の時点で、安定の版は 2.3 系（2.3.2 が最後）で、3.0 は先行の版（EA）です。下の説明は、2.3 系の公式の文書を土台にし、3.0 で変わる点はその都度書きます（[版の選び方](#版の選び方)）。数字（成功率・時間など）は、特に断らない限り開発元の文書が示す値で、条件が違えば変わります。
-- **選び方**: 開発の流れ（環境を作る → 学習させる → 評価する → 実機に移す）の各段階から、Isaac Lab の公式の文書が案内している道具と手引きを選びました。強化学習のライブラリは、文書の比較の表に載る4つのうち、Isaac Lab の作者が開発にかかわる RSL-RL と、文書が最も充実しているとされる skrl を項目にしました。
+- **選び方**: 開発の流れ（環境を作る → 学習させる → 評価する → 実機に移す）の各段階から、Isaac Lab の公式の文書が案内している道具と手引きを選びました。強化学習のライブラリは、2.3 系の文書の比較の表に載る4つのうち、論文の著者に Isaac Lab の技術報告の筆頭の著者が含まれる RSL-RL と、同じ表で文書が最も充実している（Comprehensive）とされる skrl を項目にしました。
 - **今回は載せていないもの**: 個々の学習の環境（四脚の歩行、手の操作など）の解説、クラウドやクラスタでの運用（コンテナ・Ray など）、Isaac Sim 側の機能（アセットの作り方・ROS とつなぐ仕組み）の詳細。
 
 ## Isaac Lab での開発の要点
@@ -17,7 +17,7 @@ Isaac Lab は、NVIDIA が開発する、ロボットの学習（強化学習・
 | 3.0.0-EA | 6.1 | 先行の版（2026-09-16）。開発元は、正式な版（GA）を 2026 年 10 月末に出すことを目標としている |
 | `release/3.0.0` の枝・`develop` の枝 | 6.2 | 3.0 の正式な版に向けた開発中のもの |
 
-3.0 は、内部の構成が大きく変わります（開発元のリリースノートによる）。
+3.0 は、内部の構成が大きく変わります（[GitHub のリリースの一覧](https://github.com/isaac-sim/IsaacLab/releases)にある 3.0.0-EA と beta の説明による。上の表の GA の目標も同じ）。
 
 - **計算の部分を選べる**: 物理の計算（Isaac Sim の PhysX、Newton、Kit を使わない PhysX〈OVPhysX〉）、描画、可視化を、それぞれ別に選べる。対応する環境は、環境のコードを書き換えずに切り替えられる。
 - **Isaac Sim なしで動かせる**: Newton の物理と描画を使えば、Isaac Sim（Omniverse Kit）を入れずに学習できる。Isaac Sim が要るのは、XR の遠隔操作・ROS とつなぐ仕組み・Isaac Sim の PhysX や RTX の描画を使う場合などに限られる。
@@ -26,9 +26,11 @@ Isaac Lab は、NVIDIA が開発する、ロボットの学習（強化学習・
   - 状態を読む属性（`.data.*`）が `torch.Tensor` ではなく Warp の配列を包んだもの（`ProxyArray`。`.torch` で PyTorch のテンソルとして取り出す）を返す
   - `--headless` が `--viz` に変わる
   - `TiledCamera` が `Camera` に統合される
-  - 環境の用意が `isaaclab.sh` から `uv run` に移る
+  - `isaaclab.sh` は非推奨になり、操作は `uv run isaaclab <サブコマンド>` の形の1つのコマンドにまとまる。例えば、学習は `uv run isaaclab train --rl_library rsl_rl --task <課題の名前>`、学習させた方策の再生は `play`、課題の一覧は `list_envs`。使うライブラリや計算の部分の追加の部品は、`uv run --extra skrl isaaclab ...` のように `--extra` で指定する（[3.0 の文書](https://isaac-sim.github.io/IsaacLab/release/3.0.0/source/developer-tools/template_generator.html)による）
 
-新しく始める場合、正式な版で安定して動かしたいなら 2.3 系、3.0 の機能（Newton、Isaac Sim なしでの学習、LEAPP での書き出し）を使いたいなら 3.0 を選ぶ、というのが判断の軸になります（このリポジトリの整理）。2.3 系の開発は終わっているので、長く使うコードは、3.0 への移行を見込んで書くのが無難です。Newton との連携は、3.0 の中でも試験的な機能とされ、対応する環境は、古典的な課題と平地の歩行に限られています（開発元の文書による。確認日の時点）。
+- **Newton の扱い**: 2.3 系の文書（`main` の枝）では、Newton との連携は試験的な機能とされ、対応する環境は古典的な課題と平地の歩行に限られていた。3.0 の文書（`release/3.0.0` の枝）では、[物理の計算の部分の1つ](https://isaac-sim.github.io/IsaacLab/release/3.0.0/source/concepts/physics_backends.html)として説明され、ソルバーは、主に確かめられた経路である MuJoCo Warp（MJWarp）のほか、剛体向けの Kamino、布や柔らかい物体向けの VBD、粒子の材料向けの MPM などを選べる。どの課題がどの計算の部分に対応するかは課題ごとに違い、各課題の `--help` や環境の一覧で確かめる（[Newton の説明](https://isaac-sim.github.io/IsaacLab/release/3.0.0/source/concepts/physics-backends/newton.html)）。
+
+新しく始める場合、正式な版で安定して動かしたいなら 2.3 系、3.0 の機能（Newton、Isaac Sim なしでの学習、LEAPP での書き出し）を使いたいなら 3.0 を選ぶ、というのが判断の軸になります（このリポジトリの整理）。2.3 系の開発は終わっているので、長く使うコードは、3.0 への移行を見込んで書くのが無難です。
 
 ### 環境の設計
 
@@ -54,7 +56,7 @@ Isaac Lab は、NVIDIA が開発する、ロボットの学習（強化学習・
 | カリキュラム（Curriculum） | 学習の進み具合に応じて難しさを上げる | 歩行の地形や操作の課題で使われている |
 
 - **時間の刻み**: 物理の計算の刻み（`sim.dt`）と、何刻みごとに方策を1回動かすか（`decimation`）で、制御の周期が決まる。例えば 5 ms（200 Hz）の刻みで `decimation` を 4 にすると、方策は 50 Hz で動く。実機の制御の周期と合わせることが、実機に移すときの前提になる。
-- **自分の課題を作る**: 雛形の生成の機能（2.3 系では `isaaclab.sh --new`）で、Isaac Lab のリポジトリの外に、独立したプロジェクトとして作るのが推奨されている。生成のときに、書き方（マネージャー型か直接型か）と強化学習のライブラリを選ぶ（[公式の文書](https://isaac-sim.github.io/IsaacLab/main/source/overview/own-project/template.html)）。
+- **自分の課題を作る**: 雛形の生成の機能（2.3 系では `isaaclab.sh --new`、3.0 では `uv run isaaclab --new`）で、Isaac Lab のリポジトリの外に、独立したプロジェクトとして作るのが推奨されている。生成のときに、書き方（マネージャー型か直接型か）と強化学習のライブラリを選ぶ（[公式の文書](https://isaac-sim.github.io/IsaacLab/main/source/overview/own-project/template.html)）。
 
 ### アクチュエータのモデル
 
@@ -66,14 +68,20 @@ Isaac Lab は、NVIDIA が開発する、ロボットの学習（強化学習・
 
 ### 強化学習
 
-Isaac Lab は、4つの強化学習のライブラリにつなぐラッパーを用意しています（[公式の比較](https://isaac-sim.github.io/IsaacLab/main/source/overview/reinforcement-learning/rl_frameworks.html)）。3.0 では、RLinf にもつながります。
+Isaac Lab は、強化学習のライブラリにつなぐラッパーを用意しています。下の表は、2.3 系の文書の比較の表の値です（[2.3 系の比較](https://isaac-sim.github.io/IsaacLab/main/source/overview/reinforcement-learning/rl_frameworks.html)）。
 
 | ライブラリ | 主なアルゴリズム | 計算の枠組み | 複数の GPU | 複数のエージェント |
 |---|---|---|---|---|
 | [RSL-RL](#rsl-rl) | PPO、蒸留（教師と生徒） | PyTorch | 対応 | PPO |
 | RL-Games | PPO、SAC、A2C | PyTorch | 対応 | PPO |
-| [skrl](#skrl) | 多数 | PyTorch、JAX | 対応 | PPO と複数のエージェント向けのもの |
+| [skrl](#skrl) | 多数 | PyTorch、JAX（skrl 自体は Warp でも実装されている。[項目](#skrl)を参照） | 対応 | PPO と複数のエージェント向けのもの |
 | Stable-Baselines3 | 多数 | PyTorch | 非対応（並列の環境にも非対応） | — |
+
+3.0 の文書の比較（[3.0 の強化学習の説明](https://isaac-sim.github.io/IsaacLab/release/3.0.0/source/concepts/reinforcement_learning.html)）は、表の形が変わり、「何のために選ぶか」で整理しています。主な違いは次のとおりです。
+
+- RSL-RL は既定で入り、対称性を使ったデータの水増しや RND（探索を促す手法）なども挙げられている。
+- 複数のエージェントの学習（MAPPO・IPPO）は skrl でだけ説明されている。
+- VLA（Isaac GR00T・OpenVLA）を強化学習で追加学習するための RLinf と、PyTorch の部品で独自のアルゴリズムを組むための TorchRL が加わった。
 
 - **速さ**: 開発元の文書によれば、人型の課題（`Isaac-Humanoid-v0`）を、RTX 4090 の1枚で、描画なし・4,096 の並列の環境で 6,550 万歩だけ学習させた時間は、RSL-RL・RL-Games・skrl がほぼ同じ（約 200 秒）で、Stable-Baselines3 は約 290 秒だった。速さよりも、使いたいアルゴリズム・文書・既存の例の多さで選ぶことになる。
 - **並列の環境の数**: 多いほど1回の更新のデータが増えるが、ある所から先は伸びが鈍り、1歩の計算が遅くなる分が上回る。上限を決めるのはふつう GPU のメモリで、カメラの画像の観測・柔らかい物体・細かい衝突の形状がメモリを使う。少ない環境数では、バッチの大きさや1回の試行の長さを増やして補う（[学習の手引き](https://isaac-sim.github.io/IsaacLab/main/source/overview/reinforcement-learning/training_guide.html)）。
@@ -83,7 +91,7 @@ Isaac Lab は、4つの強化学習のライブラリにつなぐラッパーを
 
 ### 模倣学習
 
-人の操作の記録から方策を学ばせる流れは、次のとおりです（[公式の文書](https://isaac-sim.github.io/IsaacLab/main/source/overview/imitation-learning/teleop_imitation.html)。詳しくは [Isaac Lab Mimic と SkillGen](#isaac-lab-mimic-と-skillgen)）。
+人の操作の記録から方策を学ばせる流れは、次のとおりです（[公式の文書](https://isaac-sim.github.io/IsaacLab/main/source/overview/imitation-learning/teleop_imitation.html)。詳しくは [Isaac Lab Mimic と SkillGen](#isaac-lab-mimic-と-skillgen)）。3.0 の文書の目次では、模倣学習の機能は「試験的な機能（Experimental Features）」の欄に置かれています。
 
 1. **記録**: キーボード・SpaceMouse・XR の手の追跡（CloudXR）で、シミュレーションの中のロボットを操作し、成功した操作を HDF5 の形式で記録する。目安は 10 回程度。短く、まっすぐ、止まらずに動かすのがよい。
 2. **区切りの注記**: 記録を、物体ごとの小さな作業（つかむ・運ぶ・置くなど）に区切る。手作業、または課題が用意した判定で自動で行う。区切りが少ないほど、つなぎ合わせが滑らかになる。
@@ -107,8 +115,11 @@ Isaac Lab は、4つの強化学習のライブラリにつなぐラッパーを
 方策を実機の側に渡す道具は、次のとおりです。
 
 - **IO 記述子（IO descriptors。2.3 系）**: マネージャー型の環境で学習させた方策の、行動と観測の項の並び・関節の名前・単位・時間の刻みを YAML に書き出す。実機の側で、観測の作り方を手で写し直さずに済む（[公式の文書](https://isaac-sim.github.io/IsaacLab/main/source/policy_deployment/01_io_descriptors/io_descriptors_101.html)）。
-- **LEAPP と Isaac ROS Deploy（3.0）**: 方策を、観測と行動の処理ごと ONNX などに書き出し、ROS 2 の上で動かす（[項目](#leapp-と-isaac-ros-deploy)）。
-- **Newton での学習**: 開発元によれば、Newton と PhysX の間で方策を移して確かめ（sim-to-sim）、Newton で学習させた歩行の方策を実機（Unitree G1）で動かした（[公式の文書](https://isaac-sim.github.io/IsaacLab/main/source/experimental-features/newton-physics-integration/index.html)）。
+- **LEAPP と Isaac ROS Deploy（3.0）**: 方策を、観測と行動の処理ごと ONNX などに書き出し、ROS 2 の上で動かす（[項目](#leapp-と-isaac-ros-deploy)）。LEAPP には次の制約がある（[公式の文書](https://isaac-sim.github.io/IsaacLab/release/3.0.0/source/policy_deployment/05_leapp/exporting_policies_with_leapp.html)）。
+  - マネージャー型の環境では、RSL-RL・RL-Games・skrl・Stable-Baselines3 で学習させた方策に対応する。直接型の環境では、注記を足した RSL-RL の方策だけに対応する。
+  - テンソルの値によって分岐や繰り返しが変わる処理と、Warp の処理は書き出せない。外部のライブラリの呼び出しも、たどれないことがある。
+  - 書き出すときは、学習のときと同じ物理の計算の部分と設定を使う。
+- **計算の部分をまたいだ確かめ**: 3.0 の文書は、PhysX と Newton の間で方策を移して確かめること（sim-to-sim）を勧めている。2.3 系の文書（`main` の枝）によれば、Newton で学習させた歩行の方策を実機（Unitree G1）で動かした（[2.3 系の文書](https://isaac-sim.github.io/IsaacLab/main/source/experimental-features/newton-physics-integration/index.html)）。
 
 ## 一覧
 
@@ -132,7 +143,7 @@ Isaac Lab は、4つの強化学習のライブラリにつなぐラッパーを
 - **一次情報**: [公式リポジトリ](https://github.com/isaac-sim/IsaacLab)・[リリースの一覧](https://github.com/isaac-sim/IsaacLab/releases)
 - **種類**: OSS
 - **ライセンス**: 本体は BSD-3-Clause、模倣学習の拡張（`isaaclab_mimic`）は Apache-2.0。Isaac Sim を使う使い方では、Isaac Sim 側の条件の部品もかかわる（README の表記）
-- **状態**: 研究段階（確認日の時点の最新は先行の版〈3.0.0-EA、2026-09-16〉で、正式な版〈GA〉は 2026 年 10 月末が目標。Newton との連携は試験的な機能とされている）
+- **状態**: 研究段階（確認日の時点の最新は先行の版〈3.0.0-EA、2026-09-16〉で、正式な版〈GA〉は 2026 年 10 月末が目標〈リリースの一覧の表記〉）
 - **確認日**: 2026-10-18
 - **情報源**: 一次
 
@@ -158,11 +169,11 @@ Isaac Lab は、4つの強化学習のライブラリにつなぐラッパーを
 
 ### Isaac Lab Mimic と SkillGen
 
-- **概要**: 少数の人の操作の記録から、多数の操作の記録を自動で作る、Isaac Lab の模倣学習の機能。**Isaac Lab Mimic** は、記録を物体ごとの小さな作業に区切り、新しい物体の配置に合わせて変換してつなぎ、成功したものだけを残す。開発元の文書によれば、立方体を積む課題では生成の成功率が約 50%、人型ロボット（GR-1）でつかんで置く課題では 65〜80% で、それで学習させた方策の成功率は課題により 40〜86% だった。**SkillGen** は、区切りの間の移動を、GPU で動く衝突を避ける動作の計画（cuRobo）でつなぐことで、狭い箱の中のような障害物のある場面にも対応する。Mimic は Linux でだけ使える。
+- **概要**: 少数の人の操作の記録から、多数の操作の記録を自動で作る、Isaac Lab の模倣学習の機能。**Isaac Lab Mimic** は、記録を物体ごとの小さな作業に区切り、新しい物体の配置に合わせて変換してつなぎ、成功したものだけを残す。開発元の文書によれば、立方体を積む課題では生成の成功率が約 50%、人型ロボット（GR-1）でつかんで置く課題では 65〜80% で、それで学習させた方策の成功率は課題により 40〜86% だった。**SkillGen** は、区切りの間の移動を、GPU で動く衝突を避ける動作の計画（cuRobo）でつなぐことで、狭い箱の中のような障害物のある場面にも対応する。Mimic は Linux でだけ使え、SkillGen は、開発元によれば、1〜2 の環境で 24 GB 以上の GPU のメモリが要る。
 - **一次情報**: [遠隔操作と Mimic の公式の文書](https://isaac-sim.github.io/IsaacLab/main/source/overview/imitation-learning/teleop_imitation.html)・[SkillGen の公式の文書](https://isaac-sim.github.io/IsaacLab/main/source/overview/imitation-learning/skillgen.html)
 - **種類**: OSS
 - **ライセンス**: `isaaclab_mimic` は Apache-2.0。SkillGen が使う cuRobo は独自の利用許諾（Isaac Lab の README と文書の表記）
-- **状態**: 実用（正式な版の Isaac Lab 2.3 に含まれる。SkillGen は 2.3.0 で追加された）。SkillGen は、開発元によれば、1〜2 の環境で 24 GB 以上の GPU のメモリが要る
+- **状態**: 実用（正式な版の Isaac Lab 2.3 に含まれる。SkillGen は 2.3.0 で追加された。ただし、SkillGen は独自の利用許諾の cuRobo に頼るので、その条件に注意が要る。また、3.0 の文書では、模倣学習の機能は「試験的な機能」の欄に置かれている）
 - **確認日**: 2026-10-18
 - **情報源**: 一次
 
@@ -178,11 +189,11 @@ Isaac Lab は、4つの強化学習のライブラリにつなぐラッパーを
 
 ### LEAPP と Isaac ROS Deploy
 
-- **概要**: Isaac Lab で学習させた方策を、実機で動かすための2つの道具（Isaac Lab 3.0 の世代）。**LEAPP**（Lightweight Export Annotations for Policy Pipelines）は、方策のネットワークだけでなく、観測の作り方・行動の変換・再帰の状態の扱いまでをまとめて書き出す。出力は、モデル（既定は ONNX）、実行の周期などの情報、再帰の状態や前回の行動の初期値（safetensors）である。マネージャー型の環境では4つのライブラリで学習させた方策に、直接型の環境では注記を足した RSL-RL の方策だけに対応する。テンソルの値によって分岐する処理や Warp の処理は書き出せない。**Isaac ROS Deploy** は、LEAPP で書き出した方策を、ROS 2 の上で、NVIDIA Triton で推論して動かすパッケージの集まり。方策の入出力を ROS のトピックや ros2_control につなぎ、出力を安全のための制御器で制限することもできる。VLA の方策にも対応するとしている。
+- **概要**: Isaac Lab で学習させた方策を、実機で動かすための2つの道具（Isaac Lab 3.0 の世代）。**LEAPP**（Lightweight Export Annotations for Policy Pipelines）は、方策のネットワークだけでなく、観測の作り方・行動の変換・再帰の状態の扱いまでをまとめて書き出す。出力は、モデル（既定は ONNX）、実行の周期などの情報、再帰の状態や前回の行動の初期値（safetensors）である。対応する学習の仕方と制約は、上の「[実機への展開](#実機への展開)」に書いた。**Isaac ROS Deploy** は、LEAPP で書き出した方策を、ROS 2 の上で NVIDIA Triton で推論して動かすパッケージの集まりで、方策の入出力を ROS のトピックや ros2_control につなぎ、出力を安全のための制御器で制限することもできる。VLA の方策にも対応するとしている。
 - **一次情報**: [LEAPP での書き出しの公式の文書](https://isaac-sim.github.io/IsaacLab/release/3.0.0/source/policy_deployment/05_leapp/exporting_policies_with_leapp.html)・[Isaac ROS Deploy の公式リポジトリ](https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_deploy)
 - **種類**: OSS
 - **ライセンス**: Isaac ROS Deploy は Apache-2.0。LEAPP のパッケージ自体のライセンスは、読んだ文書には書かれていなかった（未確認）
-- **状態**: 研究段階（LEAPP は正式な版の前の Isaac Lab 3.0 の機能。Isaac ROS Deploy は版の番号を示しておらず、最新の更新は 2026-09-21。Isaac Sim での展開は、確認日の時点の最新の公開には含まれていない）
+- **状態**: 研究段階（LEAPP は正式な版の前の Isaac Lab 3.0 の機能。Isaac ROS Deploy は版の番号を示しておらず、最新の更新は 2026-09-21。Isaac ROS Deploy で、Isaac Sim の中のロボットに方策を動かす機能は、確認日の時点の最新の公開には含まれていない）
 - **確認日**: 2026-10-18
 - **情報源**: 一次
 
