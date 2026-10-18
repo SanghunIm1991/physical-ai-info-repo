@@ -58,7 +58,7 @@
 
 ### Isaac Sim と Isaac Lab
 
-- **概要**: NVIDIA のシミュレータ。**Isaac Sim** は、NVIDIA の Omniverse の上で動くアプリケーションで、写実的な仮想の環境でロボットを開発・試験・学習させる。URDF・MJCF・CAD などの形式からロボットを読み込め、センサーの模擬、ROS とつなぐ仕組み、学習用のデータを人工的に作る道具を備える。**Isaac Lab** は、強化学習・模倣学習などのロボット学習のための、GPU で並列に回す枠組みで、開発元の論文によれば Isaac Gym の後継にあたる。腕・四脚・人型などのロボットのモデルと、すぐに学習を始められる環境をそろえている。Isaac Lab は計算の部分を切り替えられ（Newton・Isaac Sim など）、すべての使い方で Isaac Sim が要るわけではない。
+- **概要**: NVIDIA のシミュレータ。**Isaac Sim** は、NVIDIA の Omniverse の上で動くアプリケーションで、写実的な仮想の環境でロボットを開発・試験・学習させる。URDF・MJCF・CAD などの形式からロボットを読み込め、センサーの模擬、ROS とつなぐ仕組み、学習用のデータを人工的に作る道具を備える。**Isaac Lab** は、強化学習・模倣学習などのロボット学習のための、GPU で並列に回す枠組みで、開発元の論文によれば Isaac Gym の後継にあたる。腕・四脚・人型などのロボットのモデルと、すぐに学習を始められる環境をそろえている。Isaac Lab は計算の部分を切り替えられ（Newton・Isaac Sim など）、すべての使い方で Isaac Sim が要るわけではない。Isaac Lab での開発の詳細は [`isaac-lab.md`](isaac-lab.md) にまとめた。
 - **一次情報**: [Isaac Sim の公式リポジトリ](https://github.com/isaac-sim/IsaacSim)・[Isaac Lab の公式リポジトリ](https://github.com/isaac-sim/IsaacLab)・[Isaac Lab の論文 arXiv:2511.04831](https://arxiv.org/abs/2511.04831)
 - **種類**: OSS
 - **ライセンス**: Isaac Sim のリポジトリのソフトウェアは Apache-2.0。ただし、作る・使うには、NVIDIA の別の条件の部品（Omniverse Kit SDK・3D モデルなど）が要る。Isaac Lab は BSD-3-Clause（一部の拡張は Apache-2.0）で、Isaac Sim と組み合わせて使う場合は、Isaac Sim 側の条件もかかわる

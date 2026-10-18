@@ -19,6 +19,7 @@
 | [`topics/simulator.md`](topics/simulator.md) | シミュレータ（ロボットの学習と開発のための仮想の空間）。分類と選ぶときの観点 | 8項目 |
 | [`topics/industry.md`](topics/industry.md) | 業界ごとの導入の状況（製造業・販売業・自動車業・建設業・医療と介護） | 14項目 |
 | [`topics/nvidia.md`](topics/nvidia.md) | NVIDIA のフィジカルAI開発技術（学習・シミュレーション・ロボットの上での実行の全体像） | 9項目 |
+| [`topics/isaac-lab.md`](topics/isaac-lab.md) | Isaac Lab を使ったフィジカルAIの開発（エンジニア向け。環境の設計・学習・実機への展開の要点） | 9項目 |
 | [`topics/archive/vlm.md`](topics/archive/vlm.md) | 古くなった項目（開発の停止、後継の登場など）の移し先（VLM） | 1項目 |
 | [`CHANGELOG.md`](CHANGELOG.md) | 更新履歴 | — |
 | [`templates/item.md`](templates/item.md) | 1項目の書式 | — |

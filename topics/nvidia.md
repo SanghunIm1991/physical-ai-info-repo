@@ -7,6 +7,7 @@ NVIDIA は、フィジカルAIの開発に使う計算機・ソフトウェア�
   - [Cosmos 3](vlm.md#cosmos-3)（VLM・世界モデルとして使える基盤モデル）と [Isaac GR00T](vlm.md#isaac-gr00t)（人型ロボットなどに向けた VLA）: [`vlm.md`](vlm.md)
   - [Isaac Sim と Isaac Lab](simulator.md#isaac-sim-と-isaac-lab)（シミュレータと学習の枠組み）と [Newton](simulator.md#newton)（物理エンジン。NVIDIA が Google DeepMind・Disney Research とともに始め、現在は Linux Foundation のプロジェクト）: [`simulator.md`](simulator.md)
   - 導入の事例（Foxconn のヒト型ロボットなど）: [`industry.md`](industry.md)
+  - Isaac Lab での開発の詳細（環境の設計・学習・実機への展開）: [`isaac-lab.md`](isaac-lab.md)
 - **見出しの分け方**: 項目は、種類ではなく技術の役割ごとの見出し（全体像・モデル・シミュレーションとデータ・ロボットのソフトウェアと計算機）に並べています。
 - **今回は載せていないもの**: 学習用の計算機（DGX）そのもの、センサーのデータを処理する基盤（Holoscan。[Jetson Thor](#jetson-thor) の項目で、そこで動かすソフトウェアとして触れるだけにした）、工場・都市の映像解析向けの基盤（Metropolis）、自動運転の車載の計算機と認証のための基盤（DRIVE）。フィジカルAIの開発の入口からは一段遠いと判断しました。
 

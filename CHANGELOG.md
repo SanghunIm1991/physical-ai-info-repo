@@ -4,6 +4,8 @@
 
 ## 2026-10-18
 
+- `topics/isaac-lab.md` を追加（Isaac Lab を使ったフィジカルAIの開発。エンジニア向けの開発の要点〈版の選び方・環境の設計・アクチュエータのモデル・強化学習・模倣学習・実機への展開〉と9項目: Isaac Lab 3.0、RSL-RL、skrl、Isaac Lab Mimic と SkillGen、Isaac Lab-Arena、LEAPP と Isaac ROS Deploy、HOVER、Isaac Lab の技術報告、歯車の挿入の方策の学習と ROS での展開）。`topics/simulator.md`・`topics/nvidia.md` から案内した
+
 - `topics/nvidia.md` を追加（NVIDIA のフィジカルAI開発技術。3つの計算機と各技術の位置づけの説明と9項目: 3つの計算機の構成、Alpamayo、Omniverse と OpenUSD、PhysX、AlpaSim、Isaac GR00T のデータ生成の設計図、Physical AI データセット、Isaac ROS、Jetson Thor）。項目の種類に「データセット」を加えた
 - `topics/vlm.md` の Cosmos 3 を確かめ直した（小型の Edge が 2026-07 に公開されたことを反映）
 
