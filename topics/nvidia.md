@@ -6,8 +6,9 @@ NVIDIA は、フィジカルAIの開発に使う計算機・ソフトウェア�
 - **ほかのファイルに載せているもの**: 次の技術は、それぞれのテーマのファイルに項目があるので、このファイルでは項目にせず、下の表で位置づけだけを示します。
   - [Cosmos 3](vlm.md#cosmos-3)（VLM・世界モデルとして使える基盤モデル）と [Isaac GR00T](vlm.md#isaac-gr00t)（人型ロボットなどに向けた VLA）: [`vlm.md`](vlm.md)
   - [Isaac Sim と Isaac Lab](simulator.md#isaac-sim-と-isaac-lab)（シミュレータと学習の枠組み）と [Newton](simulator.md#newton)（物理エンジン。NVIDIA が Google DeepMind・Disney Research とともに始め、現在は Linux Foundation のプロジェクト）: [`simulator.md`](simulator.md)
-  - 導入の事例（Foxconn の人型ロボットなど）: [`industry.md`](industry.md)
-- **今回は載せていないもの**: 学習用の計算機（DGX）そのもの、医療機器向け（Holoscan）や工場・都市の映像解析向け（Metropolis）の基盤、自動運転の車載の計算機と認証のための基盤（DRIVE）。フィジカルAIの開発の入口からは一段遠いと判断しました。
+  - 導入の事例（Foxconn のヒト型ロボットなど）: [`industry.md`](industry.md)
+- **見出しの分け方**: 項目は、種類ではなく技術の役割ごとの見出し（全体像・モデル・シミュレーションとデータ・ロボットのソフトウェアと計算機）に並べています。
+- **今回は載せていないもの**: 学習用の計算機（DGX）そのもの、センサーのデータを処理する基盤（Holoscan。[Jetson Thor](#jetson-thor) の項目で、そこで動かすソフトウェアとして触れるだけにした）、工場・都市の映像解析向けの基盤（Metropolis）、自動運転の車載の計算機と認証のための基盤（DRIVE）。フィジカルAIの開発の入口からは一段遠いと判断しました。
 
 ## 3つの計算機と各技術の位置づけ
 
@@ -19,8 +20,8 @@ NVIDIA は、フィジカルAIの開発に使う計算機・ソフトウェア�
 | シミュレーションと学習用データの生成 | Omniverse と Cosmos を動かすサーバー（RTX PRO Server） | [Omniverse と OpenUSD](#omniverse-と-openusd)、[PhysX](#physx)、[Isaac Sim と Isaac Lab](simulator.md#isaac-sim-と-isaac-lab)、[Newton](simulator.md#newton)、[AlpaSim](#alpasim)、[Isaac GR00T のデータ生成の設計図](#isaac-gr00t-のデータ生成の設計図)、[Physical AI データセット](#physical-ai-データセット) |
 | ロボットの上での実行 | Jetson Thor | [Jetson Thor](#jetson-thor)、[Isaac ROS](#isaac-ros) |
 
-- **流れの例（人型ロボット）**: 人の操作の記録を、GR00T-Mimic で数を増やし、Cosmos で見た目を多様にする → Isaac Lab で方策を学習させ、Isaac GR00T を追加学習する → Isaac Sim で試す → Jetson Thor の上で、Isaac ROS などと組み合わせて動かす。
-- **NVIDIA の技術で閉じているわけではない。** 例えば Isaac GR00T の学習用データは LeRobot（Hugging Face のロボット学習の枠組み）の形式に対応し、Isaac ROS は ROS 2 の上で動きます。一方、GPU で計算する部分の多くは NVIDIA の GPU を前提にしています。
+- **流れの例（人型ロボット）**: 各項目の一次情報をもとに、このリポジトリがまとめた例です（データの生成の部分は [GR00T-Mimic の開発元の解説](https://developer.nvidia.com/blog/building-a-synthetic-motion-generation-pipeline-for-humanoid-robot-learning) による）。人の操作の記録を、GR00T-Mimic で数を増やし、Cosmos で見た目を多様にする → そのデータで、Isaac Lab で方策を学習させる、または Isaac GR00T を追加学習する → Isaac Sim で試す → Jetson Thor の上で、Isaac ROS などと組み合わせて動かす。
+- **NVIDIA の技術で閉じているわけではない。** 例えば Isaac GR00T の追加学習のデータは、LeRobot（Hugging Face のロボット学習の枠組み）の形式を拡張したものを使い（[Isaac GR00T の公式リポジトリ](https://github.com/NVIDIA/Isaac-GR00T)の README の表記）、Isaac ROS は ROS 2 の上で動きます。一方、GPU で計算する部分の多くは NVIDIA の GPU を前提にしています。
 - **ライセンスは技術ごとに違う。** コードは Apache-2.0 などのオープンソースのライセンスが多い一方、モデルの重みとデータは NVIDIA の独自の条件（NVIDIA Open Model License、NVIDIA の自動運転のデータセットの利用許諾など）や OpenMDW-1.1 のものがあります。使う前に各項目の一次情報で確かめてください。
 
 ## 一覧
@@ -85,7 +86,7 @@ NVIDIA は、フィジカルAIの開発に使う計算機・ソフトウェア�
 
 ### AlpaSim
 
-- **概要**: NVIDIA の、自動運転の方策（運転の判断をするモデル）を試すためのシミュレータ。方策の出力に応じて場面が変わる「閉ループ」の試験を行う。描画・交通・車の動き・制御を別々のプロセスに分け、gRPC でつなぐ構成で、部品を差し替えたり、複数の GPU や計算機に分けて動かしたりできる。描画は、実際の走行のデータから再構成した場面（NuRec）を既定とし、動画を生成するモデルによる描画にも対応する。Alpamayo のほか、他の開発元の運転の方策も試せる。
+- **概要**: NVIDIA の、自動運転の方策（運転の判断をするモデル）を試すためのシミュレータ。方策の出力に応じて場面が変わる「閉ループ」の試験を行う。描画・交通・車の動き・制御を別々のプロセスに分け、gRPC でつなぐ構成で、部品を差し替えたり、複数の GPU や計算機に分けて動かしたりできる。描画は、実際の走行のデータから再構成した場面（NuRec）を既定とし、動画を生成するモデルによる描画にも対応する。README によれば、Alpamayo のほか、他の開発元の運転の方策（VaVAM・Transfuser）にも対応する。
 - **一次情報**: [公式リポジトリ](https://github.com/NVlabs/alpasim)
 - **種類**: OSS
 - **ライセンス**: コードは Apache-2.0。場面のデータは、下の Physical AI データセットの条件による
@@ -99,13 +100,13 @@ NVIDIA は、フィジカルAIの開発に使う計算機・ソフトウェア�
 - **一次情報**: [GR00T-Mimic の公式リポジトリ](https://github.com/NVIDIA-Omniverse-blueprints/synthetic-motion-generation)・[GR00T-Mimic の開発元の解説](https://developer.nvidia.com/blog/building-a-synthetic-motion-generation-pipeline-for-humanoid-robot-learning)・[GR00T-Dreams の公式リポジトリ](https://github.com/NVIDIA/GR00T-Dreams)・[GR00T-Dreams の開発元の解説](https://developer.nvidia.com/blog/enhance-robot-learning-with-synthetic-trajectory-data-generated-by-world-foundation-models)・[論文 arXiv:2505.12705（DreamGen）](https://arxiv.org/abs/2505.12705)
 - **種類**: OSS
 - **ライセンス**: GR00T-Dreams は Apache-2.0。GR00T-Mimic のリポジトリは、それ自体のライセンスを示さず、使う部品（Isaac Sim・Isaac Lab・Cosmos のモデル）の条件を挙げている
-- **状態**: 研究段階（どちらも参照用の作業の流れで、正式な版の番号は示されていない。GR00T-Mimic のリポジトリは Isaac Sim 4.5.0・Isaac Lab 2.0.2 を使う時期のもので、Isaac Sim の確認日の時点の最新〈6.2.0〉より古い）
+- **状態**: 研究段階（どちらも参照用の作業の流れで、正式な版の番号は示されていない。GR00T-Mimic のリポジトリは Isaac Sim 4.5.0・Isaac Lab 2.0.2 を使う時期のもので、[`simulator.md`](simulator.md#isaac-sim-と-isaac-lab) に載せた Isaac Sim の最新の版〈6.2.0、2026-10-17 に確認〉より古い）
 - **確認日**: 2026-10-18
 - **情報源**: 一次
 
 ### Physical AI データセット
 
-- **概要**: NVIDIA が Hugging Face で公開している、フィジカルAIの開発のためのデータセットの集まり。開発元は「商用に使える品質のオープンなデータセット」としている。自動運転（25か国・2,500以上の都市で集めた約 1,700 時間の走行のデータ。カメラ7台の映像、LiDAR、レーダーを含む）、ロボットの操作（Isaac GR00T の追加学習用の、シミュレーションと人の操作の記録の軌跡など）、倉庫などの場面、世界モデル用の人工的な場面などが含まれる。Alpamayo・Isaac GR00T の学習と評価に使われている。
+- **概要**: NVIDIA が Hugging Face で公開している、フィジカルAIの開発のためのデータセットの集まり。開発元は「商用に使える品質のオープンなデータセット」としている。自動運転（25か国・2,500以上の都市で集めた約 1,700 時間の走行のデータ。カメラ7台の映像、LiDAR、レーダーを含む）、ロボットの操作（Isaac GR00T の追加学習用の、シミュレーションと人の操作の記録の軌跡など）、倉庫などの場面、世界モデル用の人工的な場面などが含まれる。各データセットの説明によれば、自動運転のデータセットは Alpamayo に、ロボットの操作の例のデータセットは Isaac GR00T の追加学習に使われている。
 - **一次情報**: [データセットの集まりのページ](https://huggingface.co/collections/nvidia/physical-ai)・[自動運転のデータセット](https://huggingface.co/datasets/nvidia/PhysicalAI-Autonomous-Vehicles)・[Isaac GR00T の追加学習用のデータセットの例](https://huggingface.co/datasets/nvidia/PhysicalAI-Robotics-GR00T-X-Embodiment-Sim)
 - **種類**: データセット
 - **ライセンス**: データセットごとに異なる。例えば、自動運転のデータセットは NVIDIA の独自の利用許諾（利用の申し込みが要る。用途を自動運転と運転支援の社内の開発に限り、再配布を禁じ、期限は取得から12か月）、Isaac GR00T の追加学習用の例は CC BY 4.0
