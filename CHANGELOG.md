@@ -2,6 +2,11 @@
 
 追加・見直し・アーカイブへの移動を、新しいものを上にして記録します。日付は YYYY-MM-DD です。
 
+## 2026-10-18
+
+- `topics/nvidia.md` を追加（NVIDIA のフィジカルAI開発技術。3つの計算機と各技術の位置づけの説明と9項目: 3つの計算機の構成、Alpamayo、Omniverse と OpenUSD、PhysX、AlpaSim、Isaac GR00T のデータ生成の設計図、Physical AI データセット、Isaac ROS、Jetson Thor）。項目の種類に「データセット」を加えた
+- `topics/vlm.md` の Cosmos 3 を確かめ直した（小型の Edge が 2026-07 に公開されたことを反映）
+
 ## 2026-10-17
 
 - `topics/industry.md` を見直し（事例の状態を「実用／試験導入」に変更、鹿島建設の A4CSEL を試験導入に変更、選び方と載せていないものを明記、Mercedes-Benz とコマツの記述を一次情報で確かめ直した）。`topics/simulator.md` の選び方の説明を正した

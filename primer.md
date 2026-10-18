@@ -1,6 +1,6 @@
 # フィジカルAI 入門
 
-フィジカルAIの全体像を、5〜10分で読める分量でまとめた入門書です。用語の意味と、技術どうしの関係（地図）をつかむことを目的にしています。個々の技術の最新の情報は、[`topics/rai.md`](topics/rai.md)・[`topics/vlm.md`](topics/vlm.md)・[`topics/simulator.md`](topics/simulator.md) に、業界ごとの導入の状況は [`topics/industry.md`](topics/industry.md) にまとめています。
+フィジカルAIの全体像を、5〜10分で読める分量でまとめた入門書です。用語の意味と、技術どうしの関係（地図）をつかむことを目的にしています。個々の技術の最新の情報は、[`topics/rai.md`](topics/rai.md)・[`topics/vlm.md`](topics/vlm.md)・[`topics/simulator.md`](topics/simulator.md) に、業界ごとの導入の状況は [`topics/industry.md`](topics/industry.md) に、NVIDIA が提供する開発の技術の全体像は [`topics/nvidia.md`](topics/nvidia.md) にまとめています。
 
 > この入門書は、Claude Code（AI）が下書きし、リポジトリの管理者が確認したものです（[README の「ご利用の前に」](README.md#ご利用の前に)）。技術の大まかな関係を示すための説明なので、個々の製品・モデルの性能や対応範囲は、各テーマのファイルに載せた一次情報（開発元の発表・論文・公式のリポジトリなど、元の情報）で確かめてください。
 
@@ -102,6 +102,7 @@ mermaid 版は自動で配置されるので、箱の並びが上の図と違う
 - ROS 2 のロボットに AI を組み込む道具を知りたいなら [`topics/rai.md`](topics/rai.md)
 - ロボットを仮想の空間で練習・試験させる道具を知りたいなら [`topics/simulator.md`](topics/simulator.md) の分類の表
 - 工場・店・工事の現場・病院などで、実際にどこまで使われ始めているかを知りたいなら [`topics/industry.md`](topics/industry.md)
+- 学習・シミュレーション・ロボットの上での実行の道具を一式で提供している例として、NVIDIA の技術の全体像を知りたいなら [`topics/nvidia.md`](topics/nvidia.md) の「3つの計算機」の表
 
 ## 用語集
 
