@@ -104,6 +104,7 @@ mermaid 版は自動で配置されるので、箱の並びが上の図と違う
 - 工場・店・工事の現場・病院などで、実際にどこまで使われ始めているかを知りたいなら [`topics/industry.md`](topics/industry.md)
 - 学習・シミュレーション・ロボットの上での実行の道具を一式で提供している例として、NVIDIA の技術の全体像を知りたいなら [`topics/nvidia.md`](topics/nvidia.md) の「3つの計算機」の表
 - 実際に手を動かして、シミュレーションの中でロボットに動き方を学ばせたいエンジニアなら [`topics/isaac-lab.md`](topics/isaac-lab.md)（強化学習の基本を知っていることが前提）
+- NVIDIA の基盤モデル（世界モデルの Cosmos、人型ロボットなどに向けた VLA の Isaac GR00T）を、自分の用途やロボットに合わせて使いたいエンジニアなら [`topics/cosmos.md`](topics/cosmos.md)・[`topics/gr00t.md`](topics/gr00t.md)
 
 ## 用語集
 

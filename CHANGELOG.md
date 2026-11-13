@@ -2,6 +2,12 @@
 
 追加・見直し・アーカイブへの移動を、新しいものを上にして記録します。日付は YYYY-MM-DD です。
 
+## 2026-11-13
+
+- `topics/cosmos.md` を追加（NVIDIA Cosmos を使ったフィジカルAIの開発。エンジニア向けの開発の要点〈版と系譜・2つの塔の構成・動かす・追加学習・ロボットでの使い方・注意点〉と5項目: Cosmos Framework、Cosmos Curator、Cosmos Evaluator、Cosmos 3 の作例集、Cosmos 3 の開発元の技術解説）
+- `topics/gr00t.md` を追加（Isaac GR00T を使ったフィジカルAIの開発。エンジニア向けの開発の要点〈版の変遷・構成・データの形式・機体のタグ・追加学習・推論と実機への展開・評価・ライセンス〉と3項目: GR00T-WholeBodyControl、LeRobot の GR00T 対応、DreamZero）
+- `topics/vlm.md` の Cosmos 3 と Isaac GR00T を確かめ直した（GR00T N1.7 の段階の表記が資料によって違うこと、N2 が未公開であることを追記し、新しいファイルへ案内した）。`topics/nvidia.md`・README・入門書から新しいファイルへ案内した
+
 ## 2026-10-18
 
 - `topics/isaac-lab.md` を追加（Isaac Lab を使ったフィジカルAIの開発。エンジニア向けの開発の要点〈版の選び方・環境の設計・アクチュエータのモデル・強化学習・模倣学習・実機への展開〉と9項目: Isaac Lab 3.0、RSL-RL、skrl、Isaac Lab Mimic と SkillGen、Isaac Lab-Arena、LEAPP と Isaac ROS Deploy、HOVER、Isaac Lab の技術報告、歯車の挿入の方策の学習と ROS での展開）。`topics/simulator.md`・`topics/nvidia.md` から案内した
