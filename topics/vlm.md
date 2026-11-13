@@ -27,10 +27,10 @@ VLM（Vision-Language Model）は、画像と言語をまとめて扱うモデ�
 ### Cosmos 3
 
 - **概要**: NVIDIA のフィジカルAI向けの基盤モデル（2026-05 発表）。1つのモデルで、言語・画像・動画・音声・動作の系列を扱う。開発元は、使い方として、(1)複数の種類のデータを理解して推論する VLM、(2)物理的な環境の先の状態を予測する世界モデル、(3)ロボットに作業を学ばせるための土台、の3つを挙げている。大きさの違う Super（64B）・Nano（16B）が 2026-05 に公開され、機器の上で動かす小型の Edge（4B。Jetson でも動かせる）も 2026-07 に公開された（公式リポジトリの表記）。構成・追加学習・ロボットでの使い方の詳細は [`cosmos.md`](cosmos.md)。
-- **一次情報**: [論文 arXiv:2606.02800](https://arxiv.org/abs/2606.02800)・[開発元の発表](https://nvidianews.nvidia.com/news/nvidia-launches-cosmos-3-the-open-frontier-foundation-model-for-physical-ai)・[公式リポジトリ](https://github.com/NVIDIA/Cosmos)
+- **一次情報**: [論文 arXiv:2606.02800](https://arxiv.org/abs/2606.02800)・[開発元の発表](https://nvidianews.nvidia.com/news/nvidia-launches-cosmos-3-the-open-frontier-foundation-model-for-physical-ai)・[公式リポジトリ](https://github.com/NVIDIA/cosmos)
 - **種類**: OSS
 - **ライセンス**: OpenMDW-1.1（論文の要旨の記載。コード・モデル・データ・ベンチマーク）
-- **状態**: 実用（正式に公開され、開発元はクラウドのサービスとしても提供している）
+- **状態**: 実用（正式に公開され、開発元は推論のサービスのコンテナ〈NIM〉としても提供している。2026-05-31 の開発元の技術解説の時点で NIM があったのは推論の部分だけで、生成の部分は準備中だった〈[`cosmos.md`](cosmos.md#動かす)〉）
 - **確認日**: 2026-11-13
 - **情報源**: 一次
 
